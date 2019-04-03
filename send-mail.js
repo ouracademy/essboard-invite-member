@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const mjml2html = require('mjml');
 
 // async..await is not allowed in global scope, must use a wrapper
 async function sendMail(from, to, project){
@@ -23,7 +24,7 @@ async function sendMail(from, to, project){
     from: '"Essboard" <essboard.team@gmail.com>', // sender address
     to: to.email, // list of receivers
     subject: `${from.name} te ha invitado al proyecto ${project.name} de Essboard`,
-    html: "<b>Hello world?</b>" // html body
+    html: getHtml(project)
   };
 
   // send mail with defined transport object
@@ -36,6 +37,20 @@ async function sendMail(from, to, project){
 
   return info
 }
+
+const getHtml = (project) => mjml2html(`
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          Te han invitado a unirte al ${project.name} de Essboard
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`).html
 
 module.exports = {
   sendMail
