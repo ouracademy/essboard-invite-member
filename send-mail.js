@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 // async..await is not allowed in global scope, must use a wrapper
-async function main(){
+async function main(from, to, project){
 
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
@@ -20,10 +20,9 @@ async function main(){
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "bar@example.com, baz@example.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
+    from: '"Essboard" <essboard.team@gmail.com>', // sender address
+    to: to.email, // list of receivers
+    subject: `${from.name} te ha invitado al proyecto ${project.name} de Essboard`,
     html: "<b>Hello world?</b>" // html body
   };
 
@@ -38,4 +37,16 @@ async function main(){
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
-main().catch(console.error);
+const from = {
+    name: 'Arthur'
+}
+
+const to = {
+    email: 'qpdiam@gmail.com'
+}
+
+const project = {
+    name: 'Clinica UNMSM'
+}
+
+main(from, to, project).catch(console.error);
