@@ -1,7 +1,18 @@
 const express = require('express')
+var bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => res.send('Hello World!'))
+const { sendMail } = require('./send-mail')
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post('/', async (req, res) => {
+    const { from, to, project } = req.body
+
+    const info = await sendMail(from, to, project);
+    return res.send(info)
+})
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
