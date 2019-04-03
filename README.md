@@ -13,6 +13,7 @@ curl \
 -d '{ 
 "from": { "name": "Arthur"}, 
 "to": { 
-"email": "qpdiam@gmail.com"}, "project": { "name": "Clinica UNMSM"} }
+"email": "qpdiam@gmail.com"}, 
+"project": { "name": "clinica UNMSM", "id": "5c8175d09d87be000f87851f" } }
 ' 
 ```
