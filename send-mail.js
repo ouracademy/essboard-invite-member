@@ -1,33 +1,14 @@
 const nodemailer = require("nodemailer");
 const mjml2html = require('mjml');
 
-// var mailgunTransport = require('nodemailer-mailgun-transport');
- 
-// // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
-// var auth = {
-//   auth: {
-//     api_key: 'key-1234123412341234',
-//     domain: 'one of your domain names listed at your https://mailgun.com/app/domains'
-//   }
-// }
- 
-// const nodemailerMailgun = nodemailer.createTransport(mailgunTransport(auth));
- 
-async function sendMail(from, to, project){
-
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-  let account = await nodemailer.createTestAccount();
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+async function sendMail(from, to, project) {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-      user: account.user, // generated ethereal user
-      pass: account.pass // generated ethereal password
+      user: 'essboard.team@gmail.com',
+      pass: 'Diana20.'
     }
-  });
+   });
 
   // setup email data with unicode symbols
   let mailOptions = {
@@ -38,14 +19,7 @@ async function sendMail(from, to, project){
   };
 
   // send mail with defined transport object
-  let info = await transporter.sendMail(mailOptions)
-  
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-
-  return info
+  return await transporter.sendMail(mailOptions)
 }
 
 const getHtml = (from, project) => mjml2html(`
