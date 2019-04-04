@@ -1,28 +1,31 @@
 const nodemailer = require("nodemailer");
-const mjml2html = require('mjml');
+const mjml2html = require("mjml");
 
 async function sendMail(from, to, project) {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'essboard.team@gmail.com',
-      pass: 'Diana20.'
-    }
-   });
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.SENDER_EMAIL,
+            pass: process.env.SENDER_PASSWORD
+        }
+    });
 
-  // setup email data with unicode symbols
-  let mailOptions = {
-    from: '"Essboard" <essboard.team@gmail.com>', // sender address
-    to: to.email, // list of receivers
-    subject: `${from.name} te ha invitado al proyecto ${project.name} de Essboard`,
-    html: getHtml(from, project)
-  };
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: `"Essboard" <${process.env.SENDER_EMAIL}>`, // sender address
+        to: to.email, // list of receivers
+        subject: `${from.name} te ha invitado al proyecto ${
+            project.name
+        } de Essboard`,
+        html: getHtml(from, project)
+    };
 
-  // send mail with defined transport object
-  return await transporter.sendMail(mailOptions)
+    // send mail with defined transport object
+    return await transporter.sendMail(mailOptions);
 }
 
-const getHtml = (from, project) => mjml2html(`
+const getHtml = (from, project) =>
+    mjml2html(`
 <mjml>
   <mj-body background-color="#ccd3e0" font-size="13px">
     <mj-section background-color="#fff" padding-bottom="20px" padding-top="20px">
@@ -33,7 +36,9 @@ const getHtml = (from, project) => mjml2html(`
     <mj-section background-color="#5fbed0" padding-bottom="5px" padding-top="0">
       <mj-column width="100%">
         <mj-text align="center" color="#FFF" font-size="14px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="28px" padding-top="28px"><span style="font-size:20px; font-weight:bold">
-        ¡Hola!, ${from.name} le ha invitado unirse al proyecto ${project.name} </span></mj-text>
+        ¡Hola!, ${from.name} le ha invitado unirse al proyecto ${
+        project.name
+    } </span></mj-text>
       </mj-column>
     </mj-section>
     <mj-section background-color="#fff" padding-bottom="5px">
@@ -47,7 +52,9 @@ const getHtml = (from, project) => mjml2html(`
       <mj-column width="50%">
         <mj-button background-color="#6fcf85" color="#FFF" font-size="18px" align="center" 
         font-weight="bold" border="none" padding="15px 30px" border-radius="5px" 
-        href="https://essboard.netlify.com/me/projects/${project.id}" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="10px">Ir al proyecto</mj-button>
+        href="https://essboard.netlify.com/me/projects/${
+            project.id
+        }" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="10px">Ir al proyecto</mj-button>
       </mj-column>
     </mj-section>
     <mj-section background-color="#fff" >
@@ -57,8 +64,8 @@ const getHtml = (from, project) => mjml2html(`
     </mj-section>
   </mj-body>
 </mjml>
-`).html
+`).html;
 
 module.exports = {
-  sendMail
-}
+    sendMail
+};
