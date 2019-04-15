@@ -13,9 +13,9 @@ app.use(cors({ origin: process.env.ORIGIN }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/", async (req, res) => {
-    const { from, to, project } = req.body;
+    const { from, to, project, invitation } = req.body;
 
-    const info = await sendMail(from, to, project);
+    const info = await sendMail(from, to, project, invitation);
     return res.send(info);
 });
 

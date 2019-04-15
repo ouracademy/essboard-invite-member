@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 const mjml2html = require("mjml");
 
-async function sendMail(from, to, project) {
+async function sendMail(from, to, project, invitation) {
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -17,14 +17,14 @@ async function sendMail(from, to, project) {
         subject: `${from.name} te ha invitado al proyecto ${
             project.name
         } de Essboard`,
-        html: getHtml(from, project)
+        html: getHtml(from, project, invitation)
     };
 
     // send mail with defined transport object
     return await transporter.sendMail(mailOptions);
 }
 
-const getHtml = (from, project) =>
+const getHtml = (from, project, invitation) =>
     mjml2html(`
 <mjml>
   <mj-body background-color="#ccd3e0" font-size="13px">
@@ -52,9 +52,9 @@ const getHtml = (from, project) =>
       <mj-column width="50%">
         <mj-button background-color="#6fcf85" color="#FFF" font-size="18px" align="center" 
         font-weight="bold" border="none" padding="15px 30px" border-radius="5px" 
-        href="https://essboard.netlify.com/me/projects/${
-            project.id
-        }" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="10px">Ir al proyecto</mj-button>
+        href="${
+            process.env.URL_BUTTON_EMAIL
+        }/${invitation}" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="10px">Ir al proyecto</mj-button>
       </mj-column>
     </mj-section>
     <mj-section background-color="#fff" >
