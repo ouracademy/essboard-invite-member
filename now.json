@@ -19,7 +19,8 @@
         }
     ],
     "env": {
-        "SENDER_EMAIL": "@sender-mail",
+        "ORIGIN": "@origin",
+        "SENDER_EMAIL": "@sender-email",
         "SENDER_PASSWORD": "@sender-password",
         "URL_BUTTON_EMAIL": "@url-button-email"
     }
