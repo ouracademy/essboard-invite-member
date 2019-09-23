@@ -18,5 +18,9 @@
             "dest": "/index.js"
         }
     ],
-    "env": {}
+    "env": {
+        "SENDER_EMAIL": "@sender-mail",
+        "SENDER_PASSWORD": "@sender-password",
+        "URL_BUTTON_EMAIL": "@url-button-email"
+    }
 }
