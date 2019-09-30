@@ -21,3 +21,13 @@ curl \
 "project": { "name": "clinica UNMSM", "id": "5c8175d09d87be000f87851f" } }
 '
 ```
+
+curl \
+-X POST "https://essboard-invite-member.dev96.now.sh" \
+-H "Content-Type: application/json" \
+-d '{
+"from": { "name": "Arthur"},
+"to": {
+"email": "qpdiam@gmail.com"},
+"project": { "name": "clinica UNMSM", "id": "5c8175d09d87be000f87851f" } }
+'
