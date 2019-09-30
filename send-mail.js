@@ -6,7 +6,7 @@ async function sendMail(from, to, project, invitation) {
     const transporter = nodemailer.createTransport(
         smtpTransport({
             service: "gmail",
-            host: 'smtp.gmail.com',
+            host: "smtp.gmail.com",
             auth: {
                 user: process.env.SENDER_EMAIL,
                 pass: process.env.SENDER_PASSWORD
